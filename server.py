@@ -19,6 +19,9 @@ class Th(Thread):
         self.name = self._con.recv(MSG_SIZE).decode("utf-8")
         self.running = True
         self.id = id
+        for c in connections:
+            if (c.name != self.name):
+                c.send(bytes(self.name + " entrou no chat", "UTF8"))
 
     def send(self, msg):
         self._con.send(msg)
@@ -144,7 +147,7 @@ class PyroClass(object):
                 ret += str(valor) + ", "
             ret = ret[:-2] + "]\n"
             if (vezes[i] != 1):
-                ret += "Total: " + str(soma) + "\n"
+                ret += "Total: " + str(soma)
 
         return ret
 

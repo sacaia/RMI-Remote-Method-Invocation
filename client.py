@@ -42,6 +42,7 @@ inp = input("Digite mensagens:\n")
 
 while True:
     if(inp == "/e"):
+        s.send(bytes(name + " saiu do chat", "UTF8"))
         receiver.running = False
         s.close()
         raise Exception("FECHA")
@@ -63,7 +64,7 @@ while True:
 
     elif(inp.startswith("/help")):
         if("roll" in inp):
-            print("Roll help")
+            print("\nRoll help")
             str = "'.roll <repetições>* <dado> <buff/nerf>*' : Joga um <dado>\n" \
                   "Pode-se jogar diversos dados em apenas um comando, basta repetir\n" \
                   "o parâmetro <dado> quantas vezes quiser. Podendo, para cada <dado>,\n" \
@@ -84,6 +85,7 @@ while True:
             print(str)
 
     else:
-        s.send(bytes(name + ": " + inp, "UTF8"))
+        if(inp.strip()):
+            s.send(bytes(name + ": " + inp, "UTF8"))
 
     inp = input()
